@@ -1,0 +1,84 @@
+body {
+    background-color: rgb(192, 210, 198);
+    font-family: Roboto;
+}
+.container {
+    background-color: rgb(252, 252, 252);
+
+    width: 80%;
+    margin: 2rem auto;
+    border-radius: 20px;
+    padding: 2em;
+    box-shadow: 5px 5px 2px 1px rgb(226, 235, 223)}
+
+.table-container {
+    width: 98%;
+    margin: 0 auto;
+    overflow: scroll;
+    max-height: 60vh;
+}
+
+.btn {
+    padding: 0.5em 2rem;
+    background-color: rgb(18, 114, 50);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+input {
+    margin: 0 1em;
+}
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0;
+    margin-top:1em;
+    color: rgb(18, 114, 50);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 0.02em;
+    margin-bottom: 1em;
+    color: rgb(63, 69, 86);
+}
+
+table {
+    white-space: nowrap;
+    color:rgb(67, 67, 67);
+    text-align: center;
+}
+
+table, th, tr, td {
+    border: 1px solid rgb(90 90 90);
+    border-collapse: collapse;
+    padding: 0.5em;
+}
+
+td, th {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+td {
+    color:rgb(18, 114, 50);
+    font-weight: bold;
+}
+
+th {
+    min-width: fit-content;
+}
+
+tr {
+    border-bottom: 1px solid rgb(225, 225, 225);
+}
