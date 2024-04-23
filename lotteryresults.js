@@ -107,6 +107,7 @@ function updateTable(data, comboSize) {
   for (let comboKey of [...frequentCombos.keys()].sort((a,b) => b.length - a.length)) {
     let combo = frequentCombos.get(comboKey);
     if (combo.length == comboSize) {
+      combo.sort((a,b) => a - b);
       let dateIndices = comboKey.split('_'); 
       let dates = dateIndices.map(index => data.reverse()[index]['draw_date'].split('T')[0]);
       rowHtml = `<tr>`;
