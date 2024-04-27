@@ -80,7 +80,8 @@ function updateTable(data, comboSize) {
   winningNumberLists = [];
 
   tableBodyHtml = '';
-  for (let dateData of data.reverse()) {
+  data.reverse();
+  for (let dateData of data) {
     date = dateData['draw_date'].split('T')[0];
     rowHtml = '<tr>';
     rowHtml += `<th>${date}</th>`
@@ -108,8 +109,8 @@ function updateTable(data, comboSize) {
     let combo = frequentCombos.get(comboKey);
     if (combo.length == comboSize) {
       combo.sort((a,b) => a - b);
-      let dateIndices = comboKey.split('_'); 
-      let dates = dateIndices.map(index => data.reverse()[index]['draw_date'].split('T')[0]);
+      let dateIndices = comboKey.split('_').map(num => Number(num)); 
+      let dates = dateIndices.map(index => data[index]['draw_date'].split('T')[0]);
       rowHtml = `<tr>`;
       rowHtml += `<td>${combo.join('  ')}</td>`;
       rowHtml += `<td>${dateIndices.length}</td>`;
