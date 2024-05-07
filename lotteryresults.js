@@ -8,6 +8,9 @@ let freqTableBody;
 let startDateInput;
 let endDateInput;
 let groupInput;
+let highlightedGroup;
+let queryData;
+let frequentCombos = []
 
 window.onload = function() {
 
@@ -78,12 +81,13 @@ function updateInputFields(startDate, endDate, groupSize) {
 
 function updateTable(data, comboSize) {
   winningNumberLists = [];
+  queryData = data;
 
   tableBodyHtml = '';
   data.reverse();
   for (let dateData of data) {
     date = dateData['draw_date'].split('T')[0];
-    rowHtml = '<tr>';
+    rowHtml = `<tr id=${date}>`;
     rowHtml += `<th>${date}</th>`
     dateData['winning_numbers'] = dateData['winning_numbers'].split(' ').map(num => Number(num));
     let numberSet = new Set(dateData['winning_numbers']);
@@ -102,7 +106,8 @@ function updateTable(data, comboSize) {
   }
   tableBody.innerHTML = tableBodyHtml;
 
-  const frequentCombos = getCombinations(winningNumberLists);
+  frequentCombos = []
+  frequentCombos = getCombinations(winningNumberLists);
 
   let freqBodyHtml = '';
   for (let comboKey of [...frequentCombos.keys()].sort((a,b) => b.length - a.length)) {
@@ -111,7 +116,7 @@ function updateTable(data, comboSize) {
       combo.sort((a,b) => a - b);
       let dateIndices = comboKey.split('_').map(num => Number(num)); 
       let dates = dateIndices.map(index => data[index]['draw_date'].split('T')[0]);
-      rowHtml = `<tr>`;
+      rowHtml = `<tr id="${comboKey}" onclick="highlightGroup(this.id)">`;
       rowHtml += `<td>${combo.join('  ')}</td>`;
       rowHtml += `<td>${dateIndices.length}</td>`;
       rowHtml += `<td>${dates.join(', ')}</td>`;
@@ -120,6 +125,47 @@ function updateTable(data, comboSize) {
     }
   }
   freqTableBody.innerHTML = freqBodyHtml;
+}
+
+function highlightGroup(groupId) {
+  if (highlightedGroup) {
+    removeHighlight();
+  }
+  highlightedGroup = groupId;
+  let group = frequentCombos.get(groupId);
+  let dateIndices = groupId.split('_').map(num => Number(num)); 
+  let dates = dateIndices.map(index => queryData[index]['draw_date'].split('T')[0]);
+
+  for (let date of dates) {
+    let dateRow = document.getElementById(date);
+    let rowHeader = dateRow.childNodes[0];
+    rowHeader.style.background = "#bff2d1"
+    for (let num of group) {
+      let numCell = dateRow.childNodes[num];
+      numCell.style.background = "#bff2d1";
+      numCell.style.color = "black";
+    }
+  }
+}
+
+function removeHighlight() {
+  if (highlightedGroup) {
+    let group = frequentCombos.get(highlightedGroup);
+    let dateIndices = highlightedGroup.split('_').map(num => Number(num)); 
+    let dates = dateIndices.map(index => queryData[index]['draw_date'].split('T')[0]);
+  
+    for (let date of dates) {
+      let dateRow = document.getElementById(date);
+      let rowHeader = dateRow.childNodes[0];
+      rowHeader.style.background = "white"
+      for (let num of group) {
+        let numCell = dateRow.childNodes[num];
+        numCell.style.background = "white";
+        numCell.style.color = "rgb(18, 114, 50)";
+      }
+    }
+    highlightedGroup = undefined;
+  }
 }
 
 function getCombinations(winningNumberLists) {

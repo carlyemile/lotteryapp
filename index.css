@@ -25,6 +25,19 @@ body {
     border: none;
     border-radius: 5px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    margin: 1em 0;
+    padding: 0.5em 2rem;
+    background-color: rgb(255, 255, 255);
+    color: rgb(18, 114, 50);
+    border: rgb(18, 114, 50) 1px solid;
+    border-radius: 5px;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
 }
 
 form {
